@@ -1,30 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { Router, Switch, Route } from 'react-router-dom'
+import createSagaMiddleware from 'redux-saga'
 
 import history from './history'
 import reducers from './reducers'
+import sagas from './sagas'
 
-import Home from 'scenes/Home'
+import App from './App'
 
-let store = createStore(
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
 	reducers,
 	compose(
+		applyMiddleware(sagaMiddleware),
 		window.devToolsExtension && process.env.NODE_ENV === 'development' ? window.devToolsExtension() : x => x
 	)
 )
+let sagaTask = sagaMiddleware.run(sagas)
 
 const render = () => {
 	ReactDOM.render(
-		<Provider store={store}>
-			<Router history={history}>
-				<Switch>
-					<Route exact path="/" component={Home} />
-				</Switch>
-			</Router>
-		</Provider>,
+		<App store={store} history={history} />,
 		document.getElementById('root')
 	)
 }
@@ -33,7 +30,21 @@ render()
 
 if (process.env.NODE_ENV !== 'production') {
 	if (module.hot) {
-		module.hot.accept('/', () => {
+		module.hot.accept('./reducers', () => {
+			console.log("[HMR] Reloaded reducers")
+			const newReducers = require('./reducers').default
+			store.replaceReducer(newReducers)
+		})
+		module.hot.accept('./sagas', () => {
+			console.log("[HMR] Reloaded sagas")
+      const newSagas = require('./sagas').default
+      sagaTask.cancel()
+      sagaTask.toPromise().then(() => {
+        sagaTask = sagaMiddleware.run(newSagas)
+      })
+		})
+		module.hot.accept('./App', () => {
+			console.log("[HMR] Rerendered app")
 			render()
 		})
 	}

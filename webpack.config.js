@@ -40,6 +40,7 @@ module.exports = (env, argv) => ({
 	// Configure webpack-dev-server.
 	devServer: {
 		hot: true,
+		hotOnly: true, // Don't hard refresh on build errors
   },
 	module: {
 		rules: [
