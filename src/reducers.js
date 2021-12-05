@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-
 import { default as home } from 'scenes/Home/HomeDuck'
 
 const appReducer = combineReducers({

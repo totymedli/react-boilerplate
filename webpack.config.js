@@ -57,7 +57,19 @@ module.exports = (env, argv) => ({
 				test: /\.css$/,
 				use: [
 					argv.mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-					'css-loader?modules',
+					{
+						loader: 'css-loader?modules',
+						options: {
+							modules: {
+								localIdentName: '[name]-[local]--[hash:base64:5]',
+								// Everything imported from node_modules will have their name unchanged. Same as:
+								// import '!style-loader!css-loader!react-grid-layout/css/styles.css'
+								getLocalIdent: (loaderContext, localIdentName, localName) => (
+									loaderContext.resourcePath.includes('node_modules') ? localName : localIdentName
+								),
+							},
+						},
+					},
 				],
 			},
 		],
