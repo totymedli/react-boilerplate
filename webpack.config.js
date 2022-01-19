@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var DashboardPlugin = require('webpack-dashboard/plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = (env, argv) => ({
 	// Base directory for resolving entry points.
@@ -14,7 +14,7 @@ module.exports = (env, argv) => ({
 	],
 	// Where to transpile the final JS file.
 	output: {
-		path: path.join(__dirname, '../../../public/assets'),
+		path: path.join(__dirname, './dist'),
 		filename: 'bundle.js',
 	},
 	watchOptions: {
@@ -39,8 +39,11 @@ module.exports = (env, argv) => ({
 	},
 	// Configure webpack-dev-server.
 	devServer: {
-		hot: true,
-		hotOnly: true, // Don't hard refresh on build errors
+		hot: 'only', // Don't hard refresh on build errors
+		static: {
+			directory: path.join(__dirname, 'src/assets'),
+			publicPath: '/',
+		},
   },
 	module: {
 		rules: [
@@ -52,9 +55,9 @@ module.exports = (env, argv) => ({
 				],
 				exclude: /node_modules/
 			},
-			// Transpile CSS.
+			// Transpile (S)CSS.
 			{
-				test: /\.css$/,
+				test: /\.(sass|scss|css)$/,
 				use: [
 					argv.mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
 					{
@@ -64,12 +67,13 @@ module.exports = (env, argv) => ({
 								localIdentName: '[name]-[local]--[hash:base64:5]',
 								// Everything imported from node_modules will have their name unchanged. Same as:
 								// import '!style-loader!css-loader!react-grid-layout/css/styles.css'
-								getLocalIdent: (loaderContext, localIdentName, localName) => (
+								/*getLocalIdent: (loaderContext, localIdentName, localName) => (
 									loaderContext.resourcePath.includes('node_modules') ? localName : localIdentName
-								),
+								),*/
 							},
 						},
 					},
+					'sass-loader',
 				],
 			},
 		],

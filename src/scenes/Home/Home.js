@@ -1,11 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import CSSModules from 'react-css-modules'
 import Counter from './components/Counter/Counter'
 import { toggleEditing, addCounter, removeCounter } from './HomeDuck'
-import styles from './Home.css'
+import styles from './Home.scss'
 
-export default CSSModules(() => {
+export default () => {
   const isEditing = useSelector(state => state.home.isEditing)
   const counters = useSelector(state => state.home.counters)
   const dispatch = useDispatch()
@@ -23,7 +22,7 @@ export default CSSModules(() => {
           Reset
         </button>
       </div>
-      <div styleName="counter-list">
+      <div className={styles.counterList}>
         {counters.map((counter, key) => (
           <div key={key}>
             <Counter {...counter} id={key}/>
@@ -37,4 +36,4 @@ export default CSSModules(() => {
       </div>
     </div>
   )
-}, styles)
+}
