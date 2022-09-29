@@ -8,12 +8,12 @@ export default ({ id, value }) => {
   const dispatch = useDispatch()
 
   return (
-    <div className={styles.counter} style={{ height: '100%', textAlign: 'center' }}>
-      <div onClick={() => dispatch(increment({ id }))} style={{ cursor: 'pointer', color: '#2ecc71' }}>
+    <div className={styles.counter} >
+      <div onClick={() => dispatch(increment({ id }))} className={styles.increment}>
         <span>+1</span>
       </div>
       <span>{value}</span>
-      <div onClick={() => dispatch(decrement({ id }))} style={{ cursor: 'pointer', color: '#e74c3c' }}>
+      <div onClick={() => dispatch(decrement({ id }))} className={styles.decrement}>
         <span>-1</span>
       </div>
     </div>

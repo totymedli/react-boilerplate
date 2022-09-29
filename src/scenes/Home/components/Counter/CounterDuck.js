@@ -7,7 +7,8 @@ const initialState = {
 	value: 0,
 }
 
-export default createReducer(initialState, {
-  [increment]: (state, action) => { state.value += action.payload.value || 1 },
-  [decrement]: (staet, action) => { staet.value -= action.payload.value || 1 },
+export default createReducer(initialState, builder => {
+  builder
+    .addCase(increment, (state, action) => { state.value += action.payload.value || 1 })
+    .addCase(decrement, (staet, action) => { staet.value -= action.payload.value || 1 })
 })

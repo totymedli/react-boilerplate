@@ -10,13 +10,15 @@ import sagas from './sagas'
 import App from './App'
 
 const sagaMiddleware = createSagaMiddleware()
-const store = createStore(
-	reducers,
-	compose(
-		applyMiddleware(sagaMiddleware),
-		window.devToolsExtension && process.env.NODE_ENV === 'development' ? window.devToolsExtension() : x => x
-	)
-)
+const enhancers = [
+	applyMiddleware(sagaMiddleware),
+]
+
+if (process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+  enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__())
+}
+
+const store = createStore(reducers,	compose(...enhancers))
 let sagaTask = sagaMiddleware.run(sagas)
 
 const render = () => {

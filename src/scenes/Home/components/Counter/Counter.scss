@@ -1,3 +1,14 @@
 .counter {
-   
+  height: 100%;
+  text-align: center;
+
+  .increment {
+    cursor: pointer;
+    color: #2ecc71;
+  }
+
+  .decrement {
+    cursor: pointer;
+    color: #e74c3c;
+  }
 }

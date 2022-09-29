@@ -2,7 +2,7 @@
 
 An up-to-date, minimalistic but complete React example/boilerplate app so you don't have to waste time setting up a React infrastucture, just go straight to developing your app. Tech stack and features:
 
-- React, Redux, React-Router, Redux-Saga, Webpack, Electron
+- React, Redux, React-Router, Redux-Saga, Redux-Toolkit, Webpack, Electron
 - HMR, CSS
 
 ## Requirements
@@ -19,6 +19,4 @@ An up-to-date, minimalistic but complete React example/boilerplate app so you do
 1. `npm start`
 2. Open localhost:8080
 
-
-https://github.com/redux-utilities/flux-standard-action
-https://github.com/erikras/ducks-modular-redux
+The repo follows the [Dekvidet Style Guide](https://github.com/dekvidet/style-guide)

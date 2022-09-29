@@ -12,18 +12,19 @@ const initialState = {
   counters: [],
 }
 
-export default createReducer(initialState, {
-  [toggleEditing]: state => update(state, { isEditing: { $set: !state.isEditing }}),
-  [addCounter]: state => {
-    state.counters.push(counterReducer(undefined, {}))
-  },
-  [removeCounter]: (state, action) => {
-    state.counters = state.counters.filter((counter, key) => key != action.payload.id)
-  },
-  [increment]: (state, action) => {
-    state.counters[action.payload.id] = counterReducer(state.counters[action.payload.id], increment(action.payload))
-  },
-  [decrement]: (state, action) => {
-    state.counters[action.payload.id] = counterReducer(state.counters[action.payload.id], decrement(action.payload))
-  },
+export default createReducer(initialState, builder => {
+  builder
+    .addCase(toggleEditing, state => update(state, { isEditing: { $set: !state.isEditing }}))
+    .addCase(addCounter, state => {
+      state.counters.push(counterReducer(undefined, {}))
+    })
+    .addCase(removeCounter, (state, action) => {
+      state.counters = state.counters.filter((counter, key) => key != action.payload.id)
+    })
+    .addCase(increment, (state, action) => {
+      state.counters[action.payload.id] = counterReducer(state.counters[action.payload.id], increment(action.payload))
+    })
+    .addCase(decrement, (state, action) => {
+      state.counters[action.payload.id] = counterReducer(state.counters[action.payload.id], decrement(action.payload))
+    })
 })
