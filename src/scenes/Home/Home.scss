@@ -1,3 +1,21 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
 .counterList {
   display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.delete {
+  text-align: center;
+  cursor: pointer;
+  color: red;
+  font-size: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
 }

@@ -1,14 +1,28 @@
 .counter {
-  height: 100%;
+  min-width: 50px;
   text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #ddd;  
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
 
   .increment {
+    padding: 5px 0;
     cursor: pointer;
-    color: #2ecc71;
+    color: green;
+    background-color: lightgreen;
+  }
+
+  .value {
+    padding: 5px;
+    font-size: 40px;
   }
 
   .decrement {
+    padding: 5px 0;
     cursor: pointer;
-    color: #e74c3c;
+    color: red;
+    background-color: lightpink;  
   }
 }

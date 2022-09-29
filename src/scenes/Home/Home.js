@@ -11,7 +11,7 @@ export default () => {
 
   return (
     <div>
-      <div>
+      <div className={styles.menu}>
         <button onClick={() => dispatch(addCounter())}>
           Add counter
         </button>
@@ -27,7 +27,7 @@ export default () => {
           <div key={key}>
             <Counter {...counter} id={key}/>
             {isEditing && (
-              <div style={{ cursor: 'pointer', textAlign: 'center' }} onClick={() => dispatch(removeCounter({ id: key }))}>
+              <div className={styles.delete} onClick={() => dispatch(removeCounter({ id: key }))}>
                 <span>delete</span>
               </div>
             )}

@@ -1,9 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
-import history from './history'
+import router from './router'
 import reducers from './reducers'
 import sagas from './sagas'
 
@@ -21,14 +21,8 @@ if (process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_
 const store = createStore(reducers,	compose(...enhancers))
 let sagaTask = sagaMiddleware.run(sagas)
 
-const render = () => {
-	ReactDOM.render(
-		<App store={store} history={history} />,
-		document.getElementById('root')
-	)
-}
-
-render()
+const root = createRoot(document.getElementById('root'))
+root.render(<App store={store} router={router} />)
 
 if (process.env.NODE_ENV !== 'production') {
 	if (module.hot) {
